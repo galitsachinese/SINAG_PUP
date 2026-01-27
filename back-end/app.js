@@ -172,12 +172,26 @@ app.use((err, req, res, next) => {
 // =========================
 // SERVE REACT BUILD (STATIC FILES) - FOR PRODUCTION
 // =========================
-app.use(express.static(path.join(__dirname, '../dist')));
+const distPath = path.resolve(__dirname, '../dist');
+console.log('📁 Checking dist path:', distPath);
 
-// Catch-all for React Router (return index.html for all unknown routes)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
+// Check if dist folder exists
+const fs = require('fs');
+if (fs.existsSync(distPath)) {
+  console.log('✅ dist folder found, serving React build');
+  app.use(express.static(distPath));
+  
+  // Catch-all for React Router (return index.html for all unknown routes)
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+} else {
+  console.warn('⚠️ WARNING: dist folder not found at', distPath);
+  // Fallback: just send a message
+  app.get('*', (req, res) => {
+    res.json({ message: 'pup-sinag backend running (React build not found)' });
+  });
+}
 
 // =========================
 // LOAD DATABASE + MODELS (AFTER routes defined)
