@@ -155,7 +155,15 @@ if (fs.existsSync(distPath)) {
   app.use(express.static(distPath));
 
   // Catch-all for React Router (return index.html for all unknown routes)
+  // BUT exclude API routes - they should return JSON errors, not HTML
   app.get('*', (req, res) => {
+    // Don't serve index.html for API routes
+    if (req.path.startsWith('/api')) {
+      return res.status(404).json({
+        message: 'API route not found',
+        path: req.originalUrl,
+      });
+    }
     res.sendFile(path.join(distPath, 'index.html'));
   });
 } else {
