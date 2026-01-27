@@ -1,0 +1,112 @@
+/* ============================================
+   GLOBAL RESET — FULL WEB WIDTH (NO PAPER SIZE)
+   ============================================ */
+
+html,
+body,
+#root {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  background: #ffffff !important;
+  text-align: left !important;
+  overflow-x: hidden;
+}
+
+/* Remove Vite demo artifacts if present */
+.logo,
+.card,
+.read-the-docs {
+  display: none !important;
+}
+
+/* ============================================
+   SCREEN VIEW — NORMAL WEB MODE
+   --------------------------------------------
+   NOTHING should look like a document here!
+   ============================================ */
+
+.print-container {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Disable centering utilities */
+.mx-auto,
+.max-w-screen-lg,
+.max-w-4xl,
+.max-w-3xl {
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+/* ============================================
+   PRINT MODE — APPLY ONLY WHEN PRINTING
+   ============================================ */
+
+@media print {
+  /* Long Bond Paper */
+  @page {
+    size: 8.5in 13in;
+    margin: 1in;
+  }
+
+  html,
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    overflow: visible !important;
+  }
+
+  /* Only this container becomes a paper */
+  .print-container {
+    background: white !important;
+    width: 8.5in !important;
+    min-height: 13in !important;
+    padding: 1in !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Hide UI elements */
+  .no-print,
+  button,
+  nav,
+  footer {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   ICON TOOLTIP — STATUS COLUMN (HOVER ONLY)
+   ============================================ */
+
+.tooltip {
+  position: absolute;
+  top: -32px;                 /* tooltip above icon */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #111827;  /* dark gray */
+  color: #ffffff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 9999;
+}
+
+/* Show tooltip only when hovering icon */
+.group:hover .tooltip {
+  opacity: 1;
+}
