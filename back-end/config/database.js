@@ -7,6 +7,12 @@ require('dotenv').config();
 const isDevelopment = process.env.NODE_ENV === 'development';
 const dialect = isDevelopment ? 'mysql' : 'postgres';
 
+console.log('🔍 DEBUG: NODE_ENV =', process.env.NODE_ENV);
+console.log('🔍 DEBUG: isDevelopment =', isDevelopment);
+console.log('🔍 DEBUG: Using dialect =', dialect);
+console.log('🔍 DEBUG: MYSQL_HOST =', process.env.MYSQL_HOST);
+console.log('🔍 DEBUG: MYSQL_PORT =', process.env.MYSQL_PORT);
+
 const sequelize = new Sequelize(
   process.env.MYSQL_DATABASE || 'pup_sinag',
   process.env.MYSQL_USER || 'root',
