@@ -170,6 +170,16 @@ app.use((err, req, res, next) => {
 });
 
 // =========================
+// SERVE REACT BUILD (STATIC FILES) - FOR PRODUCTION
+// =========================
+app.use(express.static(path.join(__dirname, '../dist')));
+
+// Catch-all for React Router (return index.html for all unknown routes)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
+// =========================
 // LOAD DATABASE + MODELS (AFTER routes defined)
 // =========================
 const db = require('./models');

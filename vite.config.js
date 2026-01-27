@@ -6,8 +6,8 @@ import { defineConfig } from 'vite';
 export default defineConfig(({ mode }) => ({
   plugins: [tailwindcss(), react()],
 
-  // ✅ KEEP base for production, disable in dev
-  base: mode === 'production' ? '/pup-sinag/' : '/',
+  // ✅ NO base path needed for single hosting (served from root)
+  base: '/',
 
   resolve: {
     alias: {
