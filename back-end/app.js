@@ -143,33 +143,6 @@ const internDailyLogRoutes = loadRoute(
 if (internDailyLogRoutes) app.use('/api', internDailyLogRoutes);
 
 // =========================
-// HEALTH CHECK
-// =========================
-app.get('/', (req, res) => {
-  res.json({ message: 'pup-sinag backend running' });
-});
-
-// =========================
-// 404 NOT FOUND
-// =========================
-app.use((req, res) => {
-  res.status(404).json({
-    message: 'Route not found',
-    path: req.originalUrl,
-  });
-});
-
-// =========================
-// ERROR HANDLER (LAST)
-// =========================
-app.use((err, req, res, next) => {
-  console.error('❌ SERVER ERROR:', err);
-  res.status(err.status || 500).json({
-    message: err.message || 'Internal server error',
-  });
-});
-
-// =========================
 // SERVE REACT BUILD (STATIC FILES) - FOR PRODUCTION
 // =========================
 const distPath = path.resolve(__dirname, '../dist');
@@ -180,16 +153,16 @@ const fs = require('fs');
 if (fs.existsSync(distPath)) {
   console.log('✅ dist folder found, serving React build');
   app.use(express.static(distPath));
-  
+
   // Catch-all for React Router (return index.html for all unknown routes)
   app.get('*', (req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 } else {
   console.warn('⚠️ WARNING: dist folder not found at', distPath);
-  // Fallback: just send a message
-  app.get('*', (req, res) => {
-    res.json({ message: 'pup-sinag backend running (React build not found)' });
+  // Fallback: API-only mode
+  app.get('/api/health', (req, res) => {
+    res.json({ message: 'pup-sinag backend running' });
   });
 }
 
