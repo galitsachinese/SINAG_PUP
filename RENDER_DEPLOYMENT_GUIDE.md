@@ -30,13 +30,13 @@ Render.com (Single Server)
 2. Select **galitsachinese/SINAG_PUP** repository
 3. Configure settings:
 
-| Field | Value |
-|-------|-------|
-| **Name** | `pup-sinag` |
-| **Environment** | `Node` |
+| Field             | Value                                                  |
+| ----------------- | ------------------------------------------------------ |
+| **Name**          | `pup-sinag`                                            |
+| **Environment**   | `Node`                                                 |
 | **Build Command** | `cd back-end && npm install && cd .. && npm run build` |
-| **Start Command** | `cd back-end && npm start` |
-| **Plan** | Free (or Paid if needed) |
+| **Start Command** | `cd back-end && npm start`                             |
+| **Plan**          | Free (or Paid if needed)                               |
 
 ## Step 3: Environment Variables
 
@@ -59,14 +59,17 @@ NODE_ENV=production
 The following code changes are already made:
 
 ### ✅ back-end/app.js
+
 - Added static file serving: `app.use(express.static(path.join(__dirname, '../dist')))`
 - Added catch-all route for React Router
 
 ### ✅ vite.config.js
+
 - Changed base from `/pup-sinag/` to `/`
 - Frontend will be built and served from root
 
 ### ✅ build process
+
 - `npm run build` creates React optimized build in `/dist`
 - `npm start` (in back-end) starts Express server
 - Express serves `/dist` files + API routes
@@ -92,31 +95,37 @@ After deployment:
 Your MySQL database needs to be accessible from Render:
 
 ### Option A: PlanetScale (Recommended - Free Tier)
+
 1. Go to [planetscale.com](https://planetscale.com)
 2. Create free MySQL database
 3. Get connection string from "Connect" section
 4. Use in Render environment variables
 
 ### Option B: Local MySQL with Port Forwarding
+
 1. Use ngrok: `ngrok tcp 3306` to expose local MySQL
 2. Use ngrok URL in Render environment
 
 ## Troubleshooting
 
 ### Build Fails
+
 - Check: `npm run build` works locally first
 - Ensure dist/ is not in .gitignore (it's created during build)
 
 ### White Screen / 404 on Page Reload
+
 - ✅ Already fixed by catch-all route in app.js
 - Express now serves index.html for all unknown routes
 
 ### API Calls Fail
+
 - Check CORS is not blocking (shouldn't be, same domain)
-- Verify MYSQL_* environment variables in Render
+- Verify MYSQL\_\* environment variables in Render
 - Check logs: Render Dashboard → Service → Logs
 
 ### Database Connection Fails
+
 - Verify MYSQL_HOST is publicly accessible
 - Check firewall/security groups allow Render IPs
 - Test connection string locally first
