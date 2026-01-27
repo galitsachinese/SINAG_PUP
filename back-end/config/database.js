@@ -21,8 +21,16 @@ const sequelize = new Sequelize(
     host: process.env.MYSQL_HOST || '127.0.0.1',
     port: Number(process.env.MYSQL_PORT || (dialect === 'postgres' ? 5432 : 3306)),
     dialect: dialect,
-    // ✅ PostgreSQL SSL for Supabase
-    dialectOptions: dialect === 'postgres' ? { ssl: { require: true, rejectUnauthorized: false } } : {},
+    // ✅ Proper SSL configuration for Supabase PostgreSQL
+    dialectOptions:
+      dialect === 'postgres'
+        ? {
+            ssl: {
+              require: true,
+              rejectUnauthorized: false,
+            },
+          }
+        : {},
     // Enable logging during diagnosis so we can see connection attempts
     logging: console.log,
   },
