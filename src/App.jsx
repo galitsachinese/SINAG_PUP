@@ -14,7 +14,7 @@ import NoPageFound from './Pages/NoPageFound';
 import AdviserLayout from './Pages/layout/AdviserLayout';
 import CoordinatorLayout from './Pages/layout/CoordinatorLayout';
 import InternLayout from './Pages/layout/InternLayout';
-import Layout from './Pages/layout/Layout';
+import Layout from './Pages/layout/layout';
 import SupervisorLayout from './Pages/layout/SupervisorLayout';
 
 /* =========================
