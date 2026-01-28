@@ -11,15 +11,15 @@ async function seedAdminUser(db) {
 
     // Delete existing admin if it exists (to fix corrupted data)
     await User.destroy({
-      where: { email: 'SuperAdmin@gmail.com' },
+      where: { email: 'superadmin@gmail.com' },
     });
 
     // Hash password
     const hashedPassword = await bcrypt.hash('Coordinator_2026', 10);
 
-    // Create fresh admin user
+    // Create fresh admin user (store email in lowercase for query matching)
     const adminUser = await User.create({
-      email: 'SuperAdmin@gmail.com',
+      email: 'superadmin@gmail.com',
       password: hashedPassword,
       firstName: 'Super',
       lastName: 'Admin',
@@ -28,7 +28,7 @@ async function seedAdminUser(db) {
     });
 
     console.log('✅ Admin coordinator account created successfully');
-    console.log('   Email: SuperAdmin@gmail.com');
+    console.log('   Email: superadmin@gmail.com');
     console.log('   Password: Coordinator_2026');
     console.log('   Role: Coordinator');
   } catch (error) {
