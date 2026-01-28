@@ -179,6 +179,7 @@ if (fs.existsSync(distPath)) {
 // =========================
 const db = require('./models');
 const { sequelize } = db;
+const seedAdminUser = require('./utils/seedAdmin');
 
 // =========================
 // START SERVER
@@ -190,6 +191,10 @@ sequelize
   .then(() => {
     console.log('✅ Database connected');
     return sequelize.sync(); // no alter, no force
+  })
+  .then(() => {
+    // ✅ Seed default admin account
+    return seedAdminUser(db);
   })
   .then(() => {
     app.listen(PORT, () => {
