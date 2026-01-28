@@ -15,6 +15,11 @@ export default defineConfig(({ mode }) => ({
     },
   },
 
+  // ✅ Define environment variables explicitly
+  define: {
+    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'http://localhost:5000/api'),
+  },
+
   // ✅ DEV ONLY proxy (works now)
   server: {
     proxy: {
