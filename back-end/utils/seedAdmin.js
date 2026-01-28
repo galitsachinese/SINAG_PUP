@@ -26,10 +26,10 @@ async function seedAdminUser(db) {
     const adminUser = await User.create({
       email: 'SuperAdmin@gmail.com',
       password: hashedPassword,
-      first_name: 'Super',
-      last_name: 'Admin',
-      role: 'coordinator', // ✅ Coordinator role
-      is_password_changed: true, // Don't force password change
+      firstName: 'Super',
+      lastName: 'Admin',
+      role: 'Coordinator', // Match the role format in authController
+      mi: '',
     });
 
     console.log('✅ Admin coordinator account created successfully');
