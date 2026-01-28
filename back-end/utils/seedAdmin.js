@@ -9,26 +9,21 @@ async function seedAdminUser(db) {
   try {
     const { User } = db;
 
-    // Check if admin already exists
-    const existingAdmin = await User.findOne({
+    // Delete existing admin if it exists (to fix corrupted data)
+    await User.destroy({
       where: { email: 'SuperAdmin@gmail.com' },
     });
-
-    if (existingAdmin) {
-      console.log('✅ Admin account already exists');
-      return;
-    }
 
     // Hash password
     const hashedPassword = await bcrypt.hash('Coordinator_2026', 10);
 
-    // Create admin user
+    // Create fresh admin user
     const adminUser = await User.create({
       email: 'SuperAdmin@gmail.com',
       password: hashedPassword,
       firstName: 'Super',
       lastName: 'Admin',
-      role: 'Coordinator', // Match the role format in authController
+      role: 'Coordinator',
       mi: '',
     });
 
